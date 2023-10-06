@@ -1,8 +1,8 @@
 import numpy as np
 from flask import Flask, abort, jsonify, request
-import cPickle as pickle
+import pickle as pickle
 
-model_integrador = pickle.load(open(".pkl","rb"))
+model_integrador = pickle.load(open(r"D:\pythonavanzado\proyecto_integrador_dmonteon\pca_model_integrador.plk","rb"))
 
 app = Flask(__name__)
 
@@ -14,9 +14,9 @@ def make_predict():
     predict_request = [data['sl'],data['sw'],data['pl'],data['pw']]
     predict_request = np.array(predict_request)
     #np array goes to rand forest predictio pops
-    y_hat = my_random_forest.predict(predict_request)
+    y_hat = model_integrador.predict(predict_request)
     #return predic
-    output 0 [y_hat[0]]
+    output = [y_hat[0]]
     return jsonify(results=output)
 
 if __name__ == '__main__':
